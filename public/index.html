@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Device Sync</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: url('ScreensPics/screen1.jpg') no-repeat center center fixed;
+      background-size: contain;
+      background-color: black;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .number-group {
+      position: absolute;
+      right: 60px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .number {
+      font-size: 120px;
+      font-weight: bold;
+      text-shadow: 2px 2px black;
+      width: 180px;
+      text-align: right;
+      line-height: 1;
+    }
+
+    .controls {
+      display: none; /* ONLY hidden at start */
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .controls input {
+      font-size: 15px;
+      width: 30px;
+      text-align: center;
+      padding: 2px;
+    }
+
+    .controls button {
+      font-size: 18px;
+      padding: 2px 6px;
+    }
+
+    /* Position groups */
+    #group1 { top: 80px; }
+    #group2 { top: 190px; }
+    #group3 { top: 300px; }
+    #group4 { top: 420px; }
+
+    /* Number colors */
+    #number { color: #5CFF8C; }
+    #number2 { color: #03FEFD; }
+    #number3 { color: #E6F000; }
+    #number4 { color: #FA3431; }
+  </style>
+</head>
+<body>
+
+  <div id="group1" class="number-group">
+    <div id="controls" class="controls">
+      <button onclick="changeNumber(-1)">-</button>
+      <input type="text" id="numInput" value="0" />
+      <button onclick="changeNumber(1)">+</button>
+      <div style="flex-basis: 100%; height: 0;"></div>
+      <button id="resetNumber">Reset</button>
+    </div>
+    <span id="number" class="number">?</span>
+  </div>
+
+  <div id="group2" class="number-group">
+    <div id="controls2" class="controls">
+      <button onclick="changeNumber2(-1)">-</button>
+      <input type="text" id="numInput2" value="0" />
+      <button onclick="changeNumber2(1)">+</button>
+      <div style="flex-basis: 100%; height: 0;"></div>
+      <button id="resetNumber2">Reset</button>
+    </div>
+    <span id="number2" class="number">?</span>
+  </div>
+
+  <div id="group3" class="number-group">
+    <div id="controls3" class="controls">
+      <button onclick="changeNumber3(-1)">-</button>
+      <input type="text" id="numInput3" value="0" />
+      <button onclick="changeNumber3(1)">+</button>
+      <div style="flex-basis: 100%; height: 0;"></div>
+      <button id="resetNumber3">Reset</button>
+    </div>
+    <span id="number3" class="number">?</span>
+  </div>
+
+  <div id="group4" class="number-group">
+    <div id="controls4" class="controls">
+      <button onclick="changeNumber4(-1)">-</button>
+      <input type="text" id="numInput4" value="0" />
+      <button onclick="changeNumber4(1)">+</button>
+      <div style="flex-basis: 100%; height: 0;"></div>
+      <button id="resetNumber4">Reset</button>
+    </div>
+    <span id="number4" class="number">?</span>
+  </div>
+
+  <!-- Fullscreen button (NO onclick anymore) -->
+  <button id="fullscreenBtn" style="position: absolute; top: 10px; left: 10px; z-index: 9999; display: none;">
+    Fullscreen
+  </button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
