@@ -14,14 +14,20 @@ io.on('connection', (socket) => {
     socket.on('update-data', (data) => {
         socket.broadcast.emit('sync-data', data);
     });
+  
+  // Listen for timer control changes and sync across all devices
+    socket.on('timer-control', (data) => {
+        console.log('Timer control action:', data);
+        socket.broadcast.emit('timer-control', data);  // Broadcast timer action to other clients
+    });
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');
     });
 });
 
-// Start the server on port 3000
-const PORT = 3000;
+// Use Glitch's provided dynamic port, or default to 3000 if testing locally
+const PORT = process.env.PORT || 3000; // use Glitch-provided PORT or 3000 for local testing
 http.listen(PORT, () => {
     console.log(`✅ Server running at http://localhost:${PORT}`);
 });
