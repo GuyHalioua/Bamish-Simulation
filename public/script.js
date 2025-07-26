@@ -158,6 +158,81 @@ socket.on('sync-data', (data) => {
     inputEl4.value = data.number4 !== "?" ? data.number4 : inputEl4.value;
 });
 
+
+//Timer
+
+let timerInterval = null;
+let totalSeconds = 0;
+let isRunning = false;
+const timerDisplay = document.getElementById('timer-display');
+const startStopBtn = document.getElementById('startStopBtn');
+
+function updateTimerDisplay() {
+  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+  const seconds = String(totalSeconds % 60).padStart(2, '0');
+  timerDisplay.textContent = `${minutes}:${seconds}`;
+}
+
+function runTimer() {
+  timerInterval = setInterval(() => {
+    totalSeconds++;
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function toggleTimer() {
+  if (!isRunning) {
+    isRunning = true;
+    startStopBtn.textContent = "Stop";
+    startStopBtn.classList.add("active");
+    socket.emit('timer-control', { action: 'start', time: totalSeconds });
+    runTimer();
+  } else {
+    isRunning = false;
+    startStopBtn.textContent = "Start";
+    startStopBtn.classList.remove("active");
+    clearInterval(timerInterval);
+    socket.emit('timer-control', { action: 'stop', time: totalSeconds });
+  }
+}
+
+function resetTimer() {
+  isRunning = false;
+  totalSeconds = 0;
+  clearInterval(timerInterval);
+  startStopBtn.textContent = "Start";
+  startStopBtn.classList.remove("active");
+  updateTimerDisplay();
+  socket.emit('timer-control', { action: 'reset' });
+}
+
+socket.on('timer-control', (data) => {
+  totalSeconds = data.time || 0;
+  updateTimerDisplay();
+
+  if (data.action === 'start') {
+    if (!isRunning) {
+      isRunning = true;
+      startStopBtn.textContent = "Stop";
+      startStopBtn.classList.add("active");
+      runTimer();
+    }
+  } else if (data.action === 'stop') {
+    isRunning = false;
+    clearInterval(timerInterval);
+    startStopBtn.textContent = "Start";
+    startStopBtn.classList.remove("active");
+  } else if (data.action === 'reset') {
+    isRunning = false;
+    totalSeconds = 0;
+    clearInterval(timerInterval);
+    updateTimerDisplay();
+    startStopBtn.textContent = "Start";
+    startStopBtn.classList.remove("active");
+  }
+});
+
+
 // Manual input (for master)
 if (isMaster) {
     inputEl.addEventListener('change', () => updateNumber(parseInt(inputEl.value || 0)));

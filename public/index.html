@@ -7,7 +7,7 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background: url('ScreensPics/screen1.jpg') no-repeat center center fixed;
+      background: url('https://cdn.glitch.global/23af86b0-7bc4-4b12-be02-76d48b871edb/screen1.jpg?v=1746144034718') no-repeat center center fixed;
       background-size: contain;
       background-color: black;
       height: 100vh;
@@ -47,8 +47,8 @@
     }
 
     .controls button {
-      font-size: 18px;
-      padding: 2px 6px;
+      font-size: 22px;
+      padding: 5px 10px;
     }
 
     /* Position groups */
@@ -62,15 +62,43 @@
     #number2 { color: #03FEFD; }
     #number3 { color: #E6F000; }
     #number4 { color: #FA3431; }
+    
+    /* Timer styles */
+    #timer-block {
+      position: absolute;
+      bottom: 80px;
+      left: 60px;
+      text-align: center;
+    }
+
+    #timer-display {
+      font-size: 4em;
+      color: white;
+      margin-bottom: -10px;
+    }
+
+    #startStopBtn.active {
+      background-color: #666;
+      color: white;
+    }
+
+    #timer-block button {
+      font-size: 22px;
+      padding: 3px 10px;
+      /*margin-top: 5px;*/
+    }
+    
   </style>
 </head>
 <body>
 
   <div id="group1" class="number-group">
     <div id="controls" class="controls">
-      <button onclick="changeNumber(-1)">-</button>
+      <button onclick="changeNumber(-4)">-4</button>
+      <button onclick="changeNumber(-1)">-1</button>
       <input type="text" id="numInput" value="0" />
-      <button onclick="changeNumber(1)">+</button>
+      <button onclick="changeNumber(1)">+1</button>
+      <button onclick="changeNumber(4)">+4</button>
       <div style="flex-basis: 100%; height: 0;"></div>
       <button id="resetNumber">Reset</button>
     </div>
@@ -79,9 +107,11 @@
 
   <div id="group2" class="number-group">
     <div id="controls2" class="controls">
-      <button onclick="changeNumber2(-1)">-</button>
+      <button onclick="changeNumber2(-4)">-4</button>
+      <button onclick="changeNumber2(-1)">-1</button>
       <input type="text" id="numInput2" value="0" />
-      <button onclick="changeNumber2(1)">+</button>
+      <button onclick="changeNumber2(1)">+1</button>
+      <button onclick="changeNumber2(4)">+4</button>
       <div style="flex-basis: 100%; height: 0;"></div>
       <button id="resetNumber2">Reset</button>
     </div>
@@ -90,9 +120,11 @@
 
   <div id="group3" class="number-group">
     <div id="controls3" class="controls">
-      <button onclick="changeNumber3(-1)">-</button>
+      <button onclick="changeNumber3(-4)">-4</button>
+      <button onclick="changeNumber3(-1)">-1</button>
       <input type="text" id="numInput3" value="0" />
-      <button onclick="changeNumber3(1)">+</button>
+      <button onclick="changeNumber3(1)">+1</button>
+      <button onclick="changeNumber3(4)">+4</button>
       <div style="flex-basis: 100%; height: 0;"></div>
       <button id="resetNumber3">Reset</button>
     </div>
@@ -101,13 +133,22 @@
 
   <div id="group4" class="number-group">
     <div id="controls4" class="controls">
-      <button onclick="changeNumber4(-1)">-</button>
+      <button onclick="changeNumber4(-4)">-4</button>
+      <button onclick="changeNumber4(-1)">-1</button>
       <input type="text" id="numInput4" value="0" />
-      <button onclick="changeNumber4(1)">+</button>
+      <button onclick="changeNumber4(+1)">+1</button>
+      <button onclick="changeNumber4(+4)">+4</button>
       <div style="flex-basis: 100%; height: 0;"></div>
       <button id="resetNumber4">Reset</button>
     </div>
     <span id="number4" class="number">?</span>
+  </div>
+  
+   <!-- Timer block -->
+  <div id="timer-block">
+    <div id="timer-display">00:00</div>
+    <button id="startStopBtn" onclick="toggleTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
   </div>
 
   <!-- Fullscreen button (NO onclick anymore) -->
